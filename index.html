@@ -5,8 +5,10 @@
 <title>jQuery Mobile Web App</title>
 <link href="jquery.mobile.theme-1.0.min.css" rel="stylesheet" type="text/css"/>
 <link href="jquery.mobile.structure-1.0.min.css" rel="stylesheet" type="text/css"/>
+<link href="yardsale.css" rel="stylesheet" type="text/css"/>
 <script src="jquery-1.6.4.min.js" type="text/javascript"></script>
 <script src="jquery.mobile-1.0.min.js" type="text/javascript"></script>
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
 <script src="cordova.js" type="text/javascript"></script>
 
 <script type="text/javascript" charset="utf-8">
@@ -24,6 +26,11 @@
     // onSuccess Geolocation
     //
     function onSuccess(position) {
+		
+		localStorage.setItem("lat",position.coords.latitude);
+		localStorage.setItem("lng",position.coords.longitude);
+		
+		/*
         var element = document.getElementById('geolocation');
         element.innerHTML = 'Latitude: '           + position.coords.latitude              + '<br />' +
                             'Longitude: '          + position.coords.longitude             + '<br />' +
@@ -33,6 +40,7 @@
                             'Heading: '            + position.coords.heading               + '<br />' +
                             'Speed: '              + position.coords.speed                 + '<br />' +
                             'Timestamp: '          + position.timestamp                    + '<br />';
+							*/
     }
 
     // onError Callback receives a PositionError object
@@ -41,24 +49,88 @@
         alert('code: '    + error.code    + '\n' +
               'message: ' + error.message + '\n');
     }
+	
+	// Google Maps
+	
+	var map = {}; // Initialize map variable to make it global
+	var markersArray = []; // Global markers array
+	// Global information window (marker popup)
+	
+	function initialize() {
+	  var mapOptions = {
+		zoom: 11,
+		center: new google.maps.LatLng(18, 78),
+		disableDefaultUI: true
+	  };
+	  map = new google.maps.Map(document.getElementById('map-canvas'),
+		  mapOptions);
+		
+		/*google.maps.event.addListener(marker, 'click', function() {
+		  window.location.href = marker.url;
+		});*/
+		
+		setMapCenter(localStorage.getItem("lat"), localStorage.getItem("lng"));
+		addMarker(localStorage.getItem("lat"), localStorage.getItem("lng"));
+	}
+	
+	function setMapCenter(lat, lng)
+	{
+		if(lat == null || lng == null)
+		// If location not stored on device
+		{
+			// Use Lexington coords by default
+			lat = 38.002578;
+			lng = -84.539437;
+		}
+		
+		var newLatLng = new google.maps.LatLng(lat,lng);
+		map.setCenter(newLatLng);	
+	}
+	
+	function addMarker(lat,lng)
+	{
+		var newLatLng = new google.maps.LatLng(lat,lng);
+		
+		var marker = new google.maps.Marker({
+			position: newLatLng,
+			map: map
+		});
+		
+		markersArray.push(marker); // Add Marker to marker array
+	}
+	
+	function clearMarkers()
+	{
+		for(var i=0; i < markersArray.length; i++)
+		{
+			markersArray[i].setMap(null);
+		}
+		
+		this.markersArray = new Array();	
+	}
+	
+	google.maps.event.addDomListener(window, 'load', initialize);
 
 </script>
 
 </head> 
 <body> 
 
-<div data-role="page" id="page" data-theme="a">
+<div data-role="page" id="page" data-theme="c">
 	<div data-role="header">
 		<h1>Yard Sale</h1>
 	</div>
 	<div data-role="content">	
 
-	Map<br />
-    <p id="geolocation">Finding geolocation...</p>
-
+        <div id="map-canvas">
+        </div>
+	
+    	<button id="show_sales_button">Show Me Sales</button>
+        <button id="post_sale_button">Post My Sale</button>
+    
+    </div>
+    
 	<div data-role="footer">
-		<button onclick="alert('Yes');">Show Me Sales</button>
-        <button>Post My Sale</button>
 	</div>
 </div>
 

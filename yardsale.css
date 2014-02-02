@@ -1,0 +1,33 @@
+@charset "utf-8";
+/* CSS Document */
+
+div[data-role="header"] {
+	height: 10%;	
+	display: block;
+}
+
+div[data-role="content"] {
+	height: 80%;
+	display: block;
+	text-align: center;
+}
+
+#show_sales_button {
+	width: 45%;	
+	display: inline-block;
+}
+
+#post_sale_button {
+	width: 45%;	
+	display: inline-block;
+}
+
+.ui-btn {
+	display: inline-block;	
+}
+
+#map-canvas {
+	display: inline-block;
+	height: 500px;
+	width: 100%;	
+}
