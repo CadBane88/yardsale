@@ -15,14 +15,14 @@
 	document.addEventListener("deviceready", onDeviceReady, false);
 	
 	// PhoneGap is ready
-    function onDeviceReady() {
+    $(document).ready(function() {
 		// get GPS location
 		var element = document.getElementById('geolocation');
 		element.innerHTML = 'Finding location...';
 		
         navigator.geolocation.getCurrentPosition(onSuccess, onError);
 		
-	}
+	});
 	
 	// onSuccess Geolocation
     function onSuccess(position) {
