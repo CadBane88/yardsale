@@ -32,7 +32,9 @@
 		localStorage.setItem("lat",position.coords.latitude);
 		localStorage.setItem("lng",position.coords.longitude);
 		
-		alert(lat + ", " + lng);
+		$('#coords').html(localStorage.getItem("lat") + ", " + localStorage.getItem("lng"));
+		
+		alert(localStorage.getItem("lat") + ", " + localStorage.getItem("lng"));
 		
         /*element.innerHTML = 'Latitude: '           + position.coords.latitude              + '<br />' +
                             'Longitude: '          + position.coords.longitude             + '<br />' +
@@ -60,7 +62,8 @@
 	</div>
 	<div data-role="content">	
 
-	Map
+	Map<br />
+    <span id="coords"></span>
 
 	<div data-role="footer">
 		<button>Show Me Sales</button>
