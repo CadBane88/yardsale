@@ -92,7 +92,7 @@
 				});
 			},
 			error: function(){
-				alert("There was an error loading the data.");
+				alert("There was an error loading the data." + localStorage.getItem("lat") + "," + localStorage.getItem("lng") + "");
 			}
 		});
 	}
