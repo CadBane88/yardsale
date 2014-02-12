@@ -79,7 +79,7 @@
 		
 		// Get markers from database
 		$.ajax({
-			url: 'http://www.plateopie.com/yardsale/get_sales.php?lat=' + localStorage.getItem("lat") + '&lng=' + localStorage.getItem("lat") + '&distance=10',
+			url: 'http://www.plateopie.com/yardsale/get_sales.php?lat=' + localStorage.getItem("lat") + '&lng=' + localStorage.getItem("lng") + '&distance=10',
 			dataType: 'jsonp',
 			jsonp: 'jsoncallback',
 			timeout: 5000,
