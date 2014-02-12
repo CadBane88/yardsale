@@ -84,6 +84,7 @@
 			jsonp: 'jsoncallback',
 			timeout: 5000,
 			success: function(data, status){
+				alert('http://www.plateopie.com/yardsale/get_sales.php?lat=' + localStorage.getItem("lat") + '&lng=' + localStorage.getItem("lat") + '&distance=10');
 				$.each(data, function(i,item){ 
 					//var landmark = '';
 					//$('#search_results').append(landmark);
