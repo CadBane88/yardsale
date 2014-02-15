@@ -167,23 +167,16 @@
 	function rev_geocode(lat,lng)
 	{
 		var address_string;
-		$.ajax({
-			url: 'http://www.plateopie.com/yardsale/rev_geocode.php?lat=' + lat + '&lng=' + lng,
-			dataType: 'jsonp',
-			jsonp: 'jsoncallback',
-			timeout: 5000,
-			success: function(data, status){
-				
-				$.each(data, function(i,item){ 
-					//var landmark = '';
-					//$('#search_results').append(landmark);
-					address_string = item.street_num + " " + item.street + ", " + item.city + ", " + item.state + " " + item.zip;
-				});
-			},
-			error: function(){
-				alert("There was an error storing the data." + lat + "," + lng + "");
+		
+		var latlng = lat + ", " + lng;
+		var url = "http://maps.googleapis.com/maps/api/geocode/json?latlng=" + latlng + "&sensor=false";
+		$.getJSON(url, function (data) {
+			for(var i=0;i<data.results.length;i++) {
+				var address = data.results[i].formatted_address;
+				alert(address);
+				address_string = address;
 			}
-		});	
+		});
 		
 		return(address_string);
 	}
