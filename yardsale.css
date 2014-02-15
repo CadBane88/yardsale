@@ -13,12 +13,12 @@ div[data-role="content"] {
 }
 
 #show_sales_button {
-	width: 45%;	
+	width: 100%;	
 	display: inline-block;
 }
 
 #post_sale_button {
-	width: 45%;	
+	width: 100%;	
 	display: inline-block;
 }
 
