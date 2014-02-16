@@ -29,7 +29,6 @@
 		
 		localStorage.setItem("lat",position.coords.latitude);
 		localStorage.setItem("lng",position.coords.longitude);
-		localStorage.setItem("address", rev_geocode(position.coords.latitude,position.coords.longitude));
 		
 		/*
         var element = document.getElementById('geolocation');
@@ -75,9 +74,14 @@
 		  window.location.href = marker.url;
 		});*/
 		
+		refreshMap();
+	}
+	
+	function refreshMap() 
+	{
 		clearMarkers();
 		setMapCenter(localStorage.getItem("lat"), localStorage.getItem("lng"));
-		addMarker(localStorage.getItem("lat"), localStorage.getItem("lng"));
+		// addMarker(localStorage.getItem("lat"), localStorage.getItem("lng"));
 		
 		// Get markers from database
 		$.ajax({
@@ -97,7 +101,7 @@
 			error: function(){
 				alert("There was an error loading the data." + localStorage.getItem("lat") + "," + localStorage.getItem("lng") + "");
 			}
-		});
+		});	
 	}
 	
 	function setMapCenter(lat, lng)
@@ -157,6 +161,9 @@
 					localStorage.setItem("active_sale",item.id);
 					alert("Local storage: " + localStorage.getItem("active_sale"));
 				});
+				
+				$('#post_sale_button').attr('disabled','disabled');
+				$('#post_sale_button').val('My Sale is Over.');
 			},
 			error: function(){
 				alert("There was an error storing the data." + localStorage.getItem("lat") + "," + localStorage.getItem("lng") + "");
@@ -197,7 +204,7 @@
 		
         <table border="0" style="width: 90%;">
         <tr><td width="50%">
-    		<button id="show_sales_button">Show Me Sales</button>
+    		<button id="show_sales_button" onclick="refreshMap();">Show Sales</button>
         </td><td width="50%">
        		<button id="post_sale_button" onclick="addSale();">Post My Sale</button>
         </td></tr>
