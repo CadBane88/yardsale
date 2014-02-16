@@ -45,7 +45,7 @@
 		clearMarkers();
 		setMapCenter(localStorage.getItem("lat"), localStorage.getItem("lng"));
 		//addMarker(localStorage.getItem("lat"), localStorage.getItem("lng"));
-		alert("Current Address: " + localStorage.getItem("address"));
+		
     }
 
     // onError Callback receives a PositionError object
@@ -94,7 +94,7 @@
 				$.each(data, function(i,item){ 
 					//var landmark = '';
 					//$('#search_results').append(landmark);
-					alert("lat" + item.lat + "lng" + item.lng);
+					
 					addMarker(item.lat, item.lng);
 				});
 			},
@@ -155,11 +155,10 @@
 				$.each(data, function(i,item){ 
 					//var landmark = '';
 					//$('#search_results').append(landmark);
-					alert(item.id);
 					
 					// Set active_sale to sale id (this phone is tied to one sale)
 					localStorage.setItem("active_sale",item.id);
-					alert("Local storage: " + localStorage.getItem("active_sale"));
+					alert("Active sale: " + localStorage.getItem("active_sale"));
 				});
 				
 				$('#post_sale_button').attr('disabled','disabled');
