@@ -163,7 +163,7 @@
 				});
 				
 				$('#post_sale_button').attr('disabled','disabled');
-				$('#post_sale_button').val('My Sale is Over.');
+				$('#post_sale_button').html('My Sale is Over.');
 			},
 			error: function(){
 				alert("There was an error storing the data." + localStorage.getItem("lat") + "," + localStorage.getItem("lng") + "");
